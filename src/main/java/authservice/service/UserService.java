@@ -388,14 +388,11 @@ public class UserService {
     }
 
     public UserProfileResponse getUserById(Long id) {
-
-        User user =
-                userRepository.findById(id)
-                        .orElseThrow(() ->
-                                new RuntimeException(
-                                        "User not found by id: " + id
-                                )
-                        );
+        User user = userRepository
+                .findById(id)
+                .orElseThrow(() ->
+                        new UserNotFoundException(id)
+                );
 
         return new UserProfileResponse(
                 user.getId(),
